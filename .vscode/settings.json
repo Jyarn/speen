@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "glad.h": "c",
+        "stdio.h": "c"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/sdjfa/REPOS/rend",
+            "binaryPath": "/home/sdjfa/REPOS/rend/rend.out",
+            "binaryArgs": []
+        }
+    ]
+}
