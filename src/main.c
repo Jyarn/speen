@@ -77,6 +77,7 @@ int main () {
     deleteBuff(&VBO, &VAO, &EBO);
     glDeleteProgram(shaderProgram);
 
+    glfwDestroyWindow(window);
     glfwTerminate();
 
     pthread_join(thr, NULL);
