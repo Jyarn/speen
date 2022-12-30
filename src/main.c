@@ -14,23 +14,6 @@
 #include "evt.h"
 #include "render.h"
 
-const char* vertexShaderSource =
-    "#version 330 core\n"
-    "layout (location = 0) in vec2 aPos;\n"
-    "out vec4 vColor;\n"
-    "void main() {\n"
-    "   gl_Position = vec4(aPos, 0.0, 1.0);\n"
-    "   vColor = vec4(aPos, aPos.x*aPos.y, 1.0);\n"
-    "}\0";
-
-const char* fragmentShaderSource =
-    "#version 330 core\n"
-    "out vec4 FragColour;\n"
-    "in vec4 vColor;\n"
-    "void main () {\n"
-    "FragColour = vColor;\n"
-    "}\0";
-
 void framebuffer_size_callback (GLFWwindow* wnd, int w, int h) {
     glViewport(0, 0, w, h);
 
@@ -49,10 +32,10 @@ int main () {
 
 
     float vertices[] = {
-         0.5,  0.5,
-         0.5, -0.5,
-        -0.5, -0.5,
-        -0.5,  0.5,
+         200,  200,
+         200,    0,
+           0,    0,
+           0,  200,
     };
 
     unsigned int index[] = {
@@ -75,12 +58,15 @@ int main () {
     unbindBuffers();
 
     unsigned int shaderProgram = linkShaders("./shaders/Vertex.vert", "./shaders/Frag1.frag", VERTSHADER_EXTERN | FRAGSHADER_EXTERN);
+    int scPtr = glGetUniformLocation(shaderProgram, "screenCoord");
 
     while (!glfwWindowShouldClose(window)) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(shaderProgram);
+        glUniform2f(scPtr, wndWidth, wndHeight);
+
         glBindVertexArray(VAO);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -92,4 +78,6 @@ int main () {
     glDeleteProgram(shaderProgram);
 
     glfwTerminate();
+
+    pthread_join(thr, NULL);
 }
