@@ -2,7 +2,8 @@
     "files.associations": {
         "stdlib.h": "c",
         "glad.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "stdbool.h": "c"
     },
     "makefile.launchConfigurations": [
         {

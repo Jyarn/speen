@@ -61,6 +61,37 @@ unsigned int linkShaders (const char vertexShader[], const char fragShader[]) {
     return shaderProgram;
 }
 
+void bindVAO (unsigned int* VAO) {
+    glGenVertexArrays(1, VAO);
+    glBindVertexArray(*VAO);
+}
+
+void bindVBO (unsigned int* VBO) {
+    glGenBuffers(1, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, *VBO);
+}
+
+void bindEBO (unsigned int* EBO) {
+    glGenBuffers(1, EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *EBO);
+}
+
+void buffWrite (unsigned int VBO, int sz, void* w, GLenum type, GLenum hint) {
+    glBufferData(type, sz, w, hint); // oh boy do I love 1 line abstractions
+}
+
+void genVAttrib (int loc, int vectorSz, GLenum type, int strideLen, int elementSize, int offset) {
+    glVertexAttribPointer(loc, vectorSz, type, GL_FALSE, strideLen*elementSize, (void *)((long unsigned int)offset*elementSize));
+    glEnableVertexAttribArray(loc);
+}
+
+void unbindBuffers (unsigned int* VAO, unsigned int* VBO, unsigned int* EBO) {
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+/*
 void bindBuffers (float vertices[], unsigned int* VBO, int sz, int strdLen, unsigned int* VAO, int loc, GLenum hint,
 unsigned int elm[], unsigned int eSz, unsigned int* EBO) {
     // initialize VAO
@@ -84,4 +115,10 @@ unsigned int elm[], unsigned int eSz, unsigned int* EBO) {
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}*/
+
+void deleteBuff (unsigned int* VBO, unsigned int *VAO, unsigned int* EBO) {
+    glDeleteVertexArrays(1, VAO);
+    glDeleteBuffers(1, VBO);
+    glDeleteBuffers(1, EBO);
 }

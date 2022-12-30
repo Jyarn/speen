@@ -64,11 +64,14 @@ int main () {
     unsigned int VAO;
     unsigned int EBO;
 
-    bindBuffers(vertices, &VBO,
-                sizeof(vertices), 2, &VAO,
-                0, GL_STATIC_DRAW,
-                index, sizeof(index), &EBO
-    );
+    bindVAO(&VAO);
+    bindVBO(&VBO);
+    bindEBO(&EBO);
+
+    buffWrite(VBO, sizeof(vertices), vertices, GL_ARRAY_BUFFER, GL_STATIC_DRAW);
+    buffWrite(EBO, sizeof(index), index, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
+
+    genVAttrib(0, 2, GL_FLOAT, 2, sizeof(float), 0);
 
     unsigned int shaderProgram = linkShaders(vertexShaderSource, fragmentShaderSource);
 
@@ -84,9 +87,7 @@ int main () {
         glfwSwapBuffers(window);
     }
 
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    deleteBuff(&VBO, &VAO, &EBO);
     glDeleteProgram(shaderProgram);
 
     glfwTerminate();
