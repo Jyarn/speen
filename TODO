@@ -1,0 +1,4 @@
+fix event handler [remove global variables, improve flexability]
+remove global variables
+
+render based on screen coords rather than openGl coords (0, 0) = bottom left, (wndWidth, wndHeight) = top right
