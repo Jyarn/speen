@@ -4,6 +4,9 @@
 #include <stdbool.h>
 #include <glad/glad.h>
 
+#define VERTSHADER_EXTERN (char)0x01
+#define FRAGSHADER_EXTERN (char)0x02
+
 // math
 //float* transform (float vertices[]);
 
@@ -16,7 +19,7 @@ void buffWrite (unsigned int VBO, int sz, void* w, GLenum type, GLenum hint);
 void genVAttrib (int loc, int vectorSz, GLenum type, int strideLen, int elementSize, int offset);
 void unbindBuffers ();
 
-unsigned int linkShaders (const char vertexShader[], const char fragShader[]);
+unsigned int linkShaders (char vertexShader[], char fragShader[], char compileAsFile);
 void deleteBuff (unsigned int* VBO, unsigned int *VAO, unsigned int* EBO);
 
 #endif

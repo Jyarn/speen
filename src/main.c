@@ -74,7 +74,7 @@ int main () {
     genVAttrib(0, 2, GL_FLOAT, 2, sizeof(float), 0);
     unbindBuffers();
 
-    unsigned int shaderProgram = linkShaders(vertexShaderSource, fragmentShaderSource);
+    unsigned int shaderProgram = linkShaders("./shaders/Vertex.vert", "./shaders/Frag1.frag", VERTSHADER_EXTERN | FRAGSHADER_EXTERN);
 
     while (!glfwWindowShouldClose(window)) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);

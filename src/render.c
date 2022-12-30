@@ -4,11 +4,37 @@
 
 #include <glad/glad.h>
 
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#include "render.h"
+
 #define LOGSIZE 512
 
-unsigned int compileShader (const char* in, char log[LOGSIZE], GLuint type) {
+char* readFile (char* path) {
+    int fd = open(path, O_RDONLY);
+
+    if (fd < 0) {
+        fprintf(stderr, "ERROR: Unable to open file\n");
+        return NULL;
+    }
+
+    struct stat i;
+    stat(path, &i);
+
+    char* ret = malloc((i.st_size+1)*sizeof(char));
+
+    read(fd, ret, i.st_size);
+    ret[i.st_size] = '\0';
+    return ret;
+}
+
+unsigned int compileShader (char* in, char log[LOGSIZE], GLuint type, bool compileAsFile) {
+    const char* src = compileAsFile ? readFile(in) : in;
+
     unsigned int ret = glCreateShader(type);
-    glShaderSource(ret, 1, &in, NULL);
+    glShaderSource(ret, 1, &src, NULL);
     glCompileShader(ret);
 
     int succ;
@@ -20,21 +46,25 @@ unsigned int compileShader (const char* in, char log[LOGSIZE], GLuint type) {
         return 0;
     }
 
+    if (compileAsFile) {
+        free((void *)src);
+    }
+
     return ret;
 }
 
-unsigned int linkShaders (const char vertexShader[], const char fragShader[]) {
+unsigned int linkShaders (char vertexShader[], char fragShader[], char compileAsFile) {
     char* log = malloc(512*sizeof(LOGSIZE));
 
     // compile vertex shader
-    unsigned int v = compileShader(vertexShader, log, GL_VERTEX_SHADER);
+    unsigned int v = compileShader(vertexShader, log, GL_VERTEX_SHADER, (bool)(compileAsFile & VERTSHADER_EXTERN));
     if (log[0]) {
         fprintf(stderr, "ERROR: Vertex Shader Compilation failed\n%s\n", log);
         return 0;
     }
 
     // compile fragment shader
-    unsigned int f = compileShader(fragShader, log, GL_FRAGMENT_SHADER);
+    unsigned int f = compileShader(fragShader, log, GL_FRAGMENT_SHADER, (bool)(compileAsFile & FRAGSHADER_EXTERN));
     if (log[0]) {
         fprintf(stderr, "ERROR: Fragment Shader Compilation failed\n%s\n", log);
         return 0;
