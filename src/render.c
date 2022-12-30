@@ -85,7 +85,7 @@ void genVAttrib (int loc, int vectorSz, GLenum type, int strideLen, int elementS
     glEnableVertexAttribArray(loc);
 }
 
-void unbindBuffers (unsigned int* VAO, unsigned int* VBO, unsigned int* EBO) {
+void unbindBuffers () {
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

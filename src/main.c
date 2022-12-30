@@ -72,6 +72,7 @@ int main () {
     buffWrite(EBO, sizeof(index), index, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
 
     genVAttrib(0, 2, GL_FLOAT, 2, sizeof(float), 0);
+    unbindBuffers();
 
     unsigned int shaderProgram = linkShaders(vertexShaderSource, fragmentShaderSource);
 
