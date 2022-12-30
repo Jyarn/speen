@@ -11,6 +11,24 @@
 #include "const.h"
 
 int ang = 0;
+int objX = 0;
+int objY = 0;
+
+void moveRight (GLFWwindow* wnd) {
+    objX += 1;
+}
+
+void moveLeft (GLFWwindow* wnd) {
+    objX -= 1;
+}
+
+void moveUp (GLFWwindow* wnd) {
+    objY += 1;
+}
+
+void moveDown (GLFWwindow* wnd) {
+    objY -= 1;
+}
 
 void clockRight (GLFWwindow* wnd) {
     ang += ANGCHNG;
@@ -66,6 +84,22 @@ void* evtStart (void* wnd) {
         {
             GLFW_KEY_RIGHT,
             clockRight
+        },
+        {
+            GLFW_KEY_W,
+            moveUp
+        },
+        {
+            GLFW_KEY_A,
+            moveLeft
+        },
+        {
+            GLFW_KEY_D,
+            moveRight
+        },
+        {
+            GLFW_KEY_D,
+            moveDown
         },
         {0, NULL}
     };
