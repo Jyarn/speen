@@ -121,32 +121,6 @@ void unbindBuffers () {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-/*
-void bindBuffers (float vertices[], unsigned int* VBO, int sz, int strdLen, unsigned int* VAO, int loc, GLenum hint,
-unsigned int elm[], unsigned int eSz, unsigned int* EBO) {
-    // initialize VAO
-    glGenVertexArrays(1, VAO);
-    glBindVertexArray(*VAO);
-
-    // initialize VBO
-    glGenBuffers(1, VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, *VBO);
-    glBufferData(GL_ARRAY_BUFFER, sz, vertices, hint);
-
-    // initialize EBO
-    glGenBuffers(1, EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, eSz, elm, hint);
-
-    glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, strdLen*sizeof(float), NULL);
-    glEnableVertexAttribArray(loc);
-
-
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}*/
-
 void deleteBuff (unsigned int* VBO, unsigned int *VAO, unsigned int* EBO) {
     glDeleteVertexArrays(1, VAO);
     glDeleteBuffers(1, VBO);

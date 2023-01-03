@@ -3,7 +3,8 @@
         "stdlib.h": "c",
         "glad.h": "c",
         "stdio.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "render.h": "c"
     },
     "makefile.launchConfigurations": [
         {

@@ -26,6 +26,7 @@ void framebuffer_size_callback (GLFWwindow* wnd, int w, int h) {
 int main () {
     initGL(1920, 1080, "bum bumn", 4, 6, framebuffer_size_callback);
 
+
     // start event handler
     pthread_t thr;
     pthread_create(&thr, NULL, evtStart, window);
@@ -59,6 +60,9 @@ int main () {
 
     unsigned int shaderProgram = linkShaders("./shaders/Vertex.vert", "./shaders/Frag1.frag", VERTSHADER_EXTERN | FRAGSHADER_EXTERN);
     int scPtr = glGetUniformLocation(shaderProgram, "screenCoord");
+    int trPtr = glGetUniformLocation(shaderProgram, "trans");
+
+    glBindVertexArray(VAO);
 
     while (!glfwWindowShouldClose(window)) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -67,7 +71,7 @@ int main () {
         glUseProgram(shaderProgram);
         glUniform2f(scPtr, wndWidth, wndHeight);
 
-        glBindVertexArray(VAO);
+        glUniform2f(trPtr, objX, objY);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 

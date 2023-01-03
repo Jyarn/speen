@@ -11,23 +11,23 @@
 #include "const.h"
 
 int ang = 0;
-int objX = 0;
-int objY = 0;
+float objX = 0;
+float objY = 0;
 
 void moveRight (GLFWwindow* wnd) {
-    objX += 1;
+    objX += 0.0001f;
 }
 
 void moveLeft (GLFWwindow* wnd) {
-    objX -= 1;
+    objX -= 0.0001f;
 }
 
 void moveUp (GLFWwindow* wnd) {
-    objY += 1;
+    objY += 0.0001f;
 }
 
 void moveDown (GLFWwindow* wnd) {
-    objY -= 1;
+    objY -= 0.0001f;
 }
 
 void clockRight (GLFWwindow* wnd) {
@@ -98,7 +98,7 @@ void* evtStart (void* wnd) {
             moveRight
         },
         {
-            GLFW_KEY_D,
+            GLFW_KEY_S,
             moveDown
         },
         {0, NULL}
